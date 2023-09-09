@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facebook Clone</title>
+</head>
+<style>
+    /* Reset some default styles */
+    body, h1, p, ul, li {
+        margin: 0;
+        padding: 0;
+    }
+    .menu ul {
+        display: flex;
+        margin-right: auto;
+    }
+    .menu ul li{
+        padding: 10px;
+        margin-right: 20px;
+        text-align: center;
+    }
+    .menu ul li a{
+        text-decoration: none;
+    }
+    textarea{
+        height: 50px;
+        width: 300px;
+        border-radius: 20px;
+    }
+    textarea.post-input{
+        text-align: center;
+    }
+    form {
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        margin-bottom: 50px;
+        margin-top: 50px;
+        transform: translate(-50%, -50%);
+    }
+
+
+    /* Main container */
+    .container {
+        max-width: 600px;
+        margin: 54px auto;
+        padding: 20px;
+        width: 65%;
+    }
+
+    /* Post styles */
+    .post {
+        background-color: #ebecff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 100px;
+    }
+
+    .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .profile-pic img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .profile-name {
+        font-weight: bold;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .post-actions button {
+        padding: 8px 15px;
+        background-color: #1877f2;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+    .text{
+        color: black;
+    }
+
+    .post-actions{
+        margin: 11px 0;
+    }
+
+    /* Comments styles */
+    .comments {
+        margin-top: 20px;
+    }
+
+    .comment {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .comment-content p {
+        margin: 0;
+    }
+
+    .post-input-box {
+        background-color:#365686;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-input-box input {
+        flex: 1;
+        border: 1px solid rgb(255, 255, 255);
+        outline: none;
+        padding: 10px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: transparent;
+        border-radius: 23px;
+    }
+
+    .post-input-box input::placeholder {
+        color: #999;
+    }
+
+    .post-input-box input:focus {
+        border: 1px solid #1877f2;
+    }
+
+
+</style>
+<body>
+<div class="menu">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Service</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Contact</a></li>
+        <li style="float: right"><a href="#">Messenger</a></li>
+    </ul>
+
+<!--    <form action="<form method=" th:action="@{/post}" th:object="${post}>-->
+
+<!--        <textarea class="post-input" placeholder="What's in your mind?" name="post"></textarea>-->
+<!--        <div class="post-actions">-->
+<!--            <button type="submit">post</button>-->
+<!--            <button class="add-photo-button">Add Photo</button>-->
+<!--        </div>-->
+    </form>
+    <form method="post" th:action="@{/post}" th:object="${post}">
+        <label for="post">Make a post<textarea style="text-align: center" th:field="*{contentBody}" id="post" name="post"></textarea></label>
+        <input type="hidden" th:field="*{user.id}">
+        <button type="submit">Post</button>
+    </form>
+    <div class="container-wrapper">
+        <div class="container">
+            <div class="wrapper_container">
+                <!-- Add your wrapper_container content here -->
+            </div>
+            <div class="wrapper-post">
+                <div class="post">
+                    <div class="post-header">
+                        <div class="profile-pic">
+                            <!-- Replace with your profile picture -->
+                            <img src="<%= request.getContextPath() %>/images/MV5BNWNjMDc4OTktZjQ5Mi00ZjNlLTk2ZWUtZTQzNWJmNDcxZGRiXkEyXkFqcGdeQXVyMzI2MDEwNA@@._V1_.jpg" alt="Profile Picture">
+                        </div>
+                        <div class="profile-name">
+                            <!-- Replace with your name -->
+                            <h3 class="text">Matthew Stephens</h3>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <!-- Replace with your post content -->
+                        <p class="text">I just met this girl</p>
+                        <!-- Replace with your image to like -->
+                        <img src="<%= request.getContextPath() %>/images/african-girl.jpeg" alt="Post Image">
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <button class="like-button">Like <i class="fa-solid fa-thumbs-up"></i></button>
+                    <button class="comment-button">Comment <i class="fa-sharp fa-solid fa-comment"></i></button>
+                </div>
+
+                <!-- Comments section -->
+                <div class="comments">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="profile-pic">
+                                <!-- Replace with the profile picture of the commenter -->
+                                <img src="<%= request.getContextPath() %>/images/MV5BNWNjMDc4OTktZjQ5Mi00ZjNlLTk2ZWUtZTQzNWJmNDcxZGRiXkEyXkFqcGdeQXVyMzI2MDEwNA@@._V1_.jpg" alt="Friend Profile Picture">
+                            </div>
+                            <div class="profile-name">
+                                <!-- Replace with the name of the commenter -->
+                                <h3 class="text">Matthew Stephens</h3>
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <!-- Replace with the comment content -->
+                            <p>Great post! 👍</p>
+                        </div>
+                    </div>
+                    <!-- Add more comments here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--<h2>Posts</h2>-->
+<!--<form method="post" th:action="@{/post}" th:object="${post}">-->
+<!--    <label for="post">Make a post<textarea th:field="*{contentBody}" id="post" name="post"></textarea></label>-->
+<!--    <input type="hidden" th:field="*{user.id}">-->
+<!--    <button type="submit">Post</button>-->
+<!--</form>-->
+<!--<div th:each="details: ${postList}">-->
+<!--    <h1 th:field="*{user.firstName}"></h1>-->
+<!--    <p th:field="*{details.contentBody}"></p>-->
+<!--</div>-->
+</body>
+</html>

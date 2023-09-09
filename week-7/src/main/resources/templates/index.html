@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facebook Clone</title>
+    <style>
+        input {
+            display:  block;
+        }
+    </style>
+</head>
+<body>
+<h1>Facebook Clone</h1>
+<form method="post" th:action="@{/login}" th:object="${login}">
+    <label for="email">Email:<input th:field="*{email}" id="email" name="email"  type="email" required></label>
+    <label for="password">Password:<input th:field="*{password}" id="password" name="password" type="password" required></label>
+    <button type="submit">Login</button> Do not have an account? <a href="/sign-up">Sign Up</a>
+</form>
+<p th:text="${errorMessage}"></p>
+<p th:text="${userMessage}"></p>
+</body>
+</html>
